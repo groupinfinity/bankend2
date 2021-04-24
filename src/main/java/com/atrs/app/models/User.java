@@ -17,6 +17,7 @@ import javax.validation.constraints.Size;
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="user_id")
 	private Long id;
 
 	@NotBlank
@@ -31,6 +32,8 @@ public class User {
 	@NotBlank
 	@Size(max = 120)
 	private String password;
+	
+	
 
 	/*
 	 * @ManyToMany(fetch = FetchType.LAZY)
@@ -38,7 +41,17 @@ public class User {
 	 * @JoinTable( name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
 	 * inverseJoinColumns = @JoinColumn(name = "role_id"))
 	 */
-	private String role="ROLE_USER";
+	
+//	@ManyToMany(fetch = FetchType.LAZY)
+//	@JoinTable(	name = "saved_stocks", 
+//				joinColumns = @JoinColumn(name = "user_id"), 
+//				inverseJoinColumns = @JoinColumn(name = "stock_id"))
+
+
+	@OneToMany(mappedBy="user")
+	private Set<Stock> savedStocks = new HashSet<>();
+
+	
 
 	public User() {
 	}
@@ -80,11 +93,17 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-
-	public String getRoles() {
-		return role;
+	
+	public Set<Stock> getSavedStocks() {
+		return savedStocks;
 	}
-	/*
-	 * public void setRoles(String roles) { this.role = role; }
-	 */
+
+	public void setSavedStocks(Set<Stock> savedStocks) {
+		this.savedStocks = savedStocks;
+	}
+	public void addStock(Stock stock) {
+		savedStocks.add(stock);
+	}
+	
+	
 }
