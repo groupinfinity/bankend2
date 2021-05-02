@@ -31,12 +31,20 @@ public class Stock {
 	String buyFrom;
 //	@Column(name="user_id")
 //	long userId;
-	
+//	
 	@ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
 
 	
+	public Stock() {
+		this.rank = 0;
+		this.companyName = "";
+		this.nsePrice = 0.0f;
+		this.bsePrice = 0.0f;
+		this.percentProfit = 0.0f;
+		this.buyFrom = "";
+	}
 	public Stock(int rank, String companyName, float nsePrice, float bsePrice, float percentProfit,
 			 String buyFrom) {
 	
@@ -96,9 +104,11 @@ public class Stock {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
 	/*
-	 * public long getUserId() { return userId; } public void setUserId(long userId)
-	 * { this.userId = userId; }
+	 * public long getUserId() { return userId; }
+	 * 
+	 * public void setUserId(long userId) { this.userId = userId; }
 	 */
 	
 }

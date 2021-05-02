@@ -1,33 +1,32 @@
 package com.atrs.app.controllers;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.List;
-import java.util.stream.Collectors;
-
+import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.atrs.app.payload.request.LoginRequest;
 import com.atrs.app.payload.request.StockRequest;
-import com.atrs.app.repository.StockRepository;
+import com.atrs.app.payload.response.StockResponse;
+import com.atrs.app.payload.response.MessageResponse;
 import com.atrs.app.models.Stock;
-import com.atrs.app.models.User;
+import com.atrs.app.security.services.*;
 
+
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class StockController {
 	@Autowired
-	private StockRepository stockRepository;
+	private StockServiceImpl stockService;
+
 
 	@RequestMapping({ "/hello" })
 	public String firstPage() {
@@ -36,50 +35,42 @@ public class StockController {
 	}
 
 	@PostMapping("/savestock")
-	public String saveStock(@Valid @RequestBody StockRequest request) {
-
-
+	public ResponseEntity saveStock(@Valid @RequestBody StockRequest request) {
+	
 		Stock stk=new Stock(request.getRank(), request.getCompanyName(),
 				request.getNse(), request.getBse(), request.getProfit(),
 				request.getBuy());
-
-//		User user=stk.getUser();
-//		user.addStock(stk);
-		stockRepository.save(stk);
-
-		return "added";
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		String username = userDetails.getUsername();
+	
+		stockService.saveStocks(stk, username);
+		return ResponseEntity.ok(new MessageResponse("Stock added"));
 	}
-
-	@PostMapping("/deletestock")
-	public String deleteStock() {
-		/*
-		 * Stock stk=new Stock(request.getCompanyCode(), request.getCompanyName(),
-		 * request.getNse(), request.getBse(), request.getProfit(),request.getBuy());
-		 * 
-		 * 
-		 * stockRepository.delete(stk);
-		 */
-
-		//stockRepository.deleteById(id);
-		//stockRepository.deleteById(3L);
-		return "deleted";
+	
+	@PostMapping("/retrievestocks")
+	public ResponseEntity<?> getsavedStock() {
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		String username = userDetails.getUsername();
+	
+		List<StockResponse> stockList = stockService.retrieveStocks(username);
+		
+		return ResponseEntity.ok(stockList);
 	}
-
-	@GetMapping("/update")
-	public String update() {
-		Process process;
-		String s="";
-		try {
-			process = Runtime.getRuntime().exec("python http://localhost:8888/notebooks/YAHOO%20API/Untitled.ipynb hello");
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
-			s= reader.readLine();
-			reader.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return s+" world";
+	
+	@PostMapping("/watchlist")
+	public ResponseEntity<?> getWatchList() {
+		
+		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
+                .getPrincipal();
+		String username = userDetails.getUsername();
+	
+		Set<String> stockList = stockService.getWatchList(username);
+		
+		return ResponseEntity.ok(stockList);
 	}
+	
 
 }

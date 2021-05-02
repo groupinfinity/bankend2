@@ -1,9 +1,9 @@
-
+drop database  testdb;
 create database testdb;
 use testdb;
 create table users(user_id bigint auto_increment,
 email varchar(100) not null,
-password varchar(50) not null,
+password varchar(200) not null,
 username varchar(30) not null,
 primary key(user_id));
 

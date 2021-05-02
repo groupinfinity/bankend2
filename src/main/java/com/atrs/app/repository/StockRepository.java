@@ -10,5 +10,4 @@ import com.atrs.app.models.Stock;
 @Repository
 public interface StockRepository extends JpaRepository<Stock, Long>{
 
-	
 }

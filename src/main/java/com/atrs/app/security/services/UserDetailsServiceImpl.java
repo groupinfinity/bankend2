@@ -1,5 +1,7 @@
 package com.atrs.app.security.services;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -25,5 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return UserDetailsImpl.build(user);
 	}
-
+	
+	/*
+	 * public User findOne(Long id) { return userRepository.findOne(id); }
+	 */
 }
