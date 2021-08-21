@@ -1,6 +1,4 @@
-package com.atrs.app.security.services;
-
-import java.util.Optional;
+package com.atrs.app.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,7 +7,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.atrs.app.models.Stock;
 import com.atrs.app.models.User;
 import com.atrs.app.repository.UserRepository;
 
@@ -28,7 +25,5 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		return UserDetailsImpl.build(user);
 	}
 	
-	/*
-	 * public User findOne(Long id) { return userRepository.findOne(id); }
-	 */
+	
 }

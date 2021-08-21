@@ -38,18 +38,6 @@ public class User {
 	
 	
 
-	/*
-	 * @ManyToMany(fetch = FetchType.LAZY)
-	 * 
-	 * @JoinTable( name = "user_roles", joinColumns = @JoinColumn(name = "user_id"),
-	 * inverseJoinColumns = @JoinColumn(name = "role_id"))
-	 */
-	
-//	@ManyToMany(fetch = FetchType.LAZY)
-//	@JoinTable(	name = "saved_stocks", 
-//				joinColumns = @JoinColumn(name = "user_id"), 
-//				inverseJoinColumns = @JoinColumn(name = "stock_id"))
-
 
 	@OneToMany(mappedBy="user")
 	private Set<Stock> savedStocks = new HashSet<>();
@@ -110,3 +98,6 @@ public class User {
 	
 	
 }
+
+
+

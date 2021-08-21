@@ -1,5 +1,6 @@
 package com.atrs.app.controllers;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import javax.validation.Valid;
@@ -7,7 +8,6 @@ import javax.validation.Valid;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +16,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.atrs.app.payload.request.StockRequest;
 import com.atrs.app.payload.response.StockResponse;
+import com.atrs.app.services.*;
 import com.atrs.app.payload.response.MessageResponse;
+import com.atrs.app.models.ArbitrageStock;
 import com.atrs.app.models.Stock;
-import com.atrs.app.security.services.*;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,14 +27,11 @@ import com.atrs.app.security.services.*;
 public class StockController {
 	@Autowired
 	private StockServiceImpl stockService;
-
-
-	@RequestMapping({ "/hello" })
-	public String firstPage() {
-
-		return "hello";
-	}
-
+	
+	@Autowired
+	private FinanceAPIService financeAPIService; 
+	
+	//A function to save the stock recommendation
 	@PostMapping("/savestock")
 	public ResponseEntity saveStock(@Valid @RequestBody StockRequest request) {
 	
@@ -48,8 +46,9 @@ public class StockController {
 		return ResponseEntity.ok(new MessageResponse("Stock added"));
 	}
 	
+	//retrieve all the saved entries of the user
 	@PostMapping("/retrievestocks")
-	public ResponseEntity<?> getsavedStock() {
+	public ResponseEntity<List<StockResponse>> getsavedStock() {
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -60,8 +59,10 @@ public class StockController {
 		return ResponseEntity.ok(stockList);
 	}
 	
+	
+	//sends a list of companies name in saved table 
 	@PostMapping("/watchlist")
-	public ResponseEntity<?> getWatchList() {
+	public ResponseEntity<Set<String>> getWatchList() {
 		
 		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
@@ -72,5 +73,11 @@ public class StockController {
 		return ResponseEntity.ok(stockList);
 	}
 	
+	//returns a json array of nifty 50 stocks
+	@PostMapping("/stocktable")
+	public ResponseEntity<ArbitrageStock[]> getStockTable() throws IOException {
+
+		return ResponseEntity.ok(financeAPIService.sendGET());
+	}
 
 }

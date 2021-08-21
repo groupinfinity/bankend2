@@ -1,4 +1,3 @@
-drop database  testdb;
 create database testdb;
 use testdb;
 create table users(user_id bigint auto_increment,

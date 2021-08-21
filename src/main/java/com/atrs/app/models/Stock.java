@@ -29,9 +29,7 @@ public class Stock {
 	float percentProfit;
 	@Column(name="buy_from")
 	String buyFrom;
-//	@Column(name="user_id")
-//	long userId;
-//	
+
 	@ManyToOne
     @JoinColumn(name="user_id", nullable=false)
     private User user;
@@ -54,7 +52,6 @@ public class Stock {
 		this.bsePrice = bsePrice;
 		this.percentProfit = percentProfit;
 		this.buyFrom = buyFrom;
-		//this.userId=userId;
 	}
 	public long getId() {
 		return id;
@@ -105,10 +102,5 @@ public class Stock {
 		this.user = user;
 	}
 	
-	/*
-	 * public long getUserId() { return userId; }
-	 * 
-	 * public void setUserId(long userId) { this.userId = userId; }
-	 */
 	
 }

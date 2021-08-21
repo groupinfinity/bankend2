@@ -1,4 +1,4 @@
-package com.atrs.app.security.services;
+package com.atrs.app.services;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -59,9 +59,13 @@ public class StockServiceImpl {
 		for (Stock s : stocks) {
 			stockList.add(s.getCompanyName());
 		}
-		Set<String> stockSet = new HashSet<String>(stockList);  
+		Set<String> stockSet = new HashSet<>(stockList);  
 		return stockSet;
 	}
 
+	
+	void getStocksData() {
+		
+	}
 	
 }
