@@ -6,7 +6,7 @@ public class StockRequest {
 	
 	long userId;
 	int rank;
-	String company;
+	String companyName;
 	float bse;
 	float nse;
 	float profit;
@@ -25,10 +25,10 @@ public class StockRequest {
 		this.userId = userId;
 	}
 	public String getCompanyName() {
-		return company;
+		return companyName;
 	}
 	public void setCompanyName(String companyName) {
-		this.company = companyName;
+		this.companyName = companyName;
 	}
 	
 	public String getBuy() {

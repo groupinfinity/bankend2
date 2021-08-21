@@ -75,8 +75,7 @@ public class StockController {
 	
 	//returns a json array of nifty 50 stocks
 	@PostMapping("/stocktable")
-	public ResponseEntity<ArbitrageStock[]> getStockTable() throws IOException {
-
+	public ResponseEntity<ArbitrageStock[]> getStockTable() {
 		return ResponseEntity.ok(financeAPIService.sendGET());
 	}
 
