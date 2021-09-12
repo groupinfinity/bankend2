@@ -5,10 +5,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
 
 @SpringBootApplication(exclude = {JacksonAutoConfiguration.class})
-public class ArbitrageRecommendationApplication {
-	int a;
+public class ArbitrageRecommendationApplication {	
 	public static void main(String[] args) {
 		SpringApplication.run(ArbitrageRecommendationApplication.class, args);
 	}
-
 }

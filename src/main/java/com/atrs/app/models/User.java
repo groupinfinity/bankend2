@@ -35,15 +35,12 @@ public class User {
 	@Size(max = 120)
 	@Column(name="password")
 	private String password;
-	
-	
 
 
 	@OneToMany(mappedBy="user")
 	private Set<Stock> savedStocks = new HashSet<>();
 
 	
-
 	public User() {
 	}
 

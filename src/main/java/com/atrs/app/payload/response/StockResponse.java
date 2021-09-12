@@ -1,26 +1,58 @@
 package com.atrs.app.payload.response;
 
+import java.sql.Timestamp;
+import java.util.Date;
+
 import com.atrs.app.models.Stock;
 
 public class StockResponse {
 	long userId;
 	int rank;
-	String company;
-	float bse;
-	float nse;
-	float profit;
+	String companyname;
+	double bse;
+	double nse;
+	double percentDiff;
 	String buy;
+	Date saveAt;
 	
-	public StockResponse(long userId, int rank, String company, float bse, float nse, float profit, String buy) {
+	
+	public StockResponse(long userId, int rank, String company, double bse, double nse, double profit, String buy, Date savedAt) {
 		super();
 		this.userId = userId;
 		this.rank = rank;
-		this.company = company;
+		this.companyname = company;
 		this.bse = bse;
 		this.nse = nse;
-		this.profit = profit;
+		this.percentDiff = profit;
 		this.buy = buy;
+		this.saveAt = savedAt;
 	}
+	
+	public String getCompanyname() {
+		return companyname;
+	}
+
+	public void setCompanyname(String companyname) {
+		this.companyname = companyname;
+	}
+
+	public double getPercentProfit() {
+		return percentDiff;
+	}
+
+	public void setPercentProfit(double percentProfit) {
+		this.percentDiff = percentProfit;
+	}
+
+	public Date getSavedAt() {
+		return saveAt;
+	}
+
+	public void setSavedAt(Timestamp savedAt) {
+		this.saveAt = savedAt;
+	}
+
+	
 	
 	public int getRank() {
 		return rank;
@@ -35,10 +67,10 @@ public class StockResponse {
 		this.userId = userId;
 	}
 	public String getCompanyName() {
-		return company;
+		return companyname;
 	}
 	public void setCompanyName(String companyName) {
-		this.company = companyName;
+		this.companyname = companyName;
 	}
 	
 	public String getBuy() {
@@ -48,24 +80,24 @@ public class StockResponse {
 		this.buy = buy;
 	}
 	
-	public float getBse() {
+	public double getBse() {
 		return bse;
 	}
-	public void setBse(float bse) {
+	public void setBse(double bse) {
 		this.bse = bse;
 	}
-	public float getNse() {
+	public double getNse() {
 		return nse;
 	}
-	public void setNse(float nse) {
+	public void setNse(double nse) {
 		this.nse = nse;
 	}
-	public float getProfit() {
-		return profit;
-	}
-	public void setProfit(float profit) {
-		this.profit = profit;
-	}
+//	public double getProfit() {
+//		return percentProfit;
+//	}
+//	public void setProfit(double profit) {
+//		this.percentProfit = profit;
+//	}
 
 	
 	

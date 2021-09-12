@@ -7,6 +7,9 @@ public class ArbitrageStock {
 	Float nse;
 	Float bse;
 	Float priceDiff;
+	Float percentDiff;
+	
+	
 	String buy;
 	
 	public int getRank() {
@@ -46,13 +49,11 @@ public class ArbitrageStock {
 		this.buy = buy;
 	}
 		
+	public Float getPercentDiff() {
+		return percentDiff;
+	}
+	public void setPercentDiff(Float percentDiff) {
+		this.percentDiff = percentDiff;
+	}
 }
 
-
-//userId : 25,
-//rank : "3",
-//companyName : "Cipla",
-//nse : 32432,
-//bse : 34232,
-//priceDiff:1,
-//buy: "NSE"

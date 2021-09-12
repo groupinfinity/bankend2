@@ -1,5 +1,7 @@
 package com.atrs.app.payload.request;
 
+import java.sql.Timestamp;
+
 import javax.validation.constraints.NotBlank;
 
 public class StockRequest {
@@ -7,10 +9,18 @@ public class StockRequest {
 	long userId;
 	int rank;
 	String companyName;
-	float bse;
-	float nse;
-	float profit;
+	double bse;
+	double nse;
+	double percentDiff;
 	String buy;
+	
+	
+	public void setBse(double bse) {
+		this.bse = bse;
+	}
+	public void setNse(double nse) {
+		this.nse = nse;
+	}
 	
 	public int getRank() {
 		return rank;
@@ -38,23 +48,23 @@ public class StockRequest {
 		this.buy = buy;
 	}
 	
-	public float getBse() {
+	public double getBse() {
 		return bse;
 	}
 	public void setBse(float bse) {
 		this.bse = bse;
 	}
-	public float getNse() {
+	public double getNse() {
 		return nse;
 	}
 	public void setNse(float nse) {
 		this.nse = nse;
 	}
-	public float getProfit() {
-		return profit;
+	public double getPercentDiff() {
+		return percentDiff;
 	}
-	public void setProfit(float profit) {
-		this.profit = profit;
+	public void setPercentDiff(double percentDiff) {
+		this.percentDiff = percentDiff;
 	}
 	
 	
